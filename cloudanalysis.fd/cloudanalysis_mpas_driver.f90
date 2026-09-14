@@ -166,7 +166,7 @@ program cloudanalysis
   real(r_single),allocatable :: snow_1d_save(:)       ! snow
   real(r_single),allocatable :: vis2qc(:,:)           ! fog
 
-  real(r_kind)    ::  thunderRadius=2.5_r_kind
+  real(r_single)    ::  thunderRadius=2.5_r_kind
   integer(i_kind) :: miss_obs_int
   real(r_kind)    :: miss_obs_real
   parameter ( miss_obs_int = -99999  )
@@ -326,7 +326,7 @@ program cloudanalysis
        'inconsistent option for opt_cloudwaterice_retri and opt_cloudtemperature'
      write(6,*) 'gsdcloudanalysis: ',&
        'opt_cloudtemperature must be set to 3 when opt_cloudwaterice_retri =1'
-     call stop2(113)
+     stop(113)
   endif
 !!
 !!----------------------------------------------

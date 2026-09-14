@@ -60,7 +60,7 @@ SUBROUTINE PrecipType(nlat,nlon,nsig,t_bk,p_bk,q_bk,radar_3d,   &
 !
 ! observation
 !
-  real(r_kind),INTENT(IN) :: radar_3d(nlon,nlat,nsig)   ! reflectivity
+  real(r_single),INTENT(IN) :: radar_3d(nlon,nlat,nsig)   ! reflectivity
 !
 !
 !  Variables for cloud analysis

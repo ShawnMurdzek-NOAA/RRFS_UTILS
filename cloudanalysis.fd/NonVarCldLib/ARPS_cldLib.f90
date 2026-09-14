@@ -759,7 +759,7 @@ SUBROUTINE pcp_type_3d (nx,ny,nz,temp_3d,rh_3d,p_pa_3d                  &
   REAL(r_single),  intent(in)  :: temp_3d(nx,ny,nz)            ! temperature (K)
   REAL(r_single),  intent(in)  :: rh_3d(nx,ny,nz)              ! relative humudity
   REAL(r_single),  intent(in)  :: p_pa_3d(nx,ny,nz)            ! pressure (Pascal)
-  REAL(r_kind),    intent(in)  :: radar_3d(nx,ny,nz)           ! radar refl. (dBZ)
+  REAL(r_single),    intent(in)  :: radar_3d(nx,ny,nz)           ! radar refl. (dBZ)
 !
 !  OUTPUT:
   INTEGER(i_kind), intent(out) :: istatus
