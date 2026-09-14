@@ -1669,7 +1669,7 @@ MODULE module_wps_map_utils
       TYPE (proj_info), INTENT(IN) :: proj
       
       ! Local variables
-      INTEGER :: ii,imt,jj,jmt,k,krows,ncol,nrow,iri
+      INTEGER :: ii,imt,jj,jmt,ncol,nrow
       REAL(KIND=HIGH) :: dphd,dlmd !Grid increments, degrees
       REAL(KIND=HIGH) :: glatd  !Geographic latitude, positive north
       REAL(KIND=HIGH) :: glond  !Geographic longitude, positive west
@@ -1838,9 +1838,9 @@ MODULE module_wps_map_utils
       TYPE (proj_info), INTENT(IN) :: proj
       
       ! Local variables
-      INTEGER :: ih,jh
+      INTEGER :: jh
       REAL :: jj
-      INTEGER :: midcol,midrow,ncol,iadd1,iadd2,imt,jh2,knrow,krem,kv,nrow
+      INTEGER :: midcol,midrow
       REAL :: dphd,dlmd !Grid increments, degrees
       REAL(KIND=HIGH) :: arg1,arg2,d2r,fctr,glatr,glatd,glond,pi, &
               r2d,tlatd,tlond,tlatr,tlonr,tlm0,tph0
