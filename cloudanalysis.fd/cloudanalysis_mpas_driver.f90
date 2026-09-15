@@ -236,7 +236,6 @@ program cloudanalysis
 
 ! local variables used for adjustment of qr/qs for RTMA_3D to alleviate ghost reflectivity
   logical         :: print_verbose
-  logical         :: verbose
   integer(i_kind) :: k_cap            ! highest level when adjument is done (used for adjust qr/qs for RTMA_3D)
   logical         :: fileexist
   character(len=80) :: obsfile
@@ -299,7 +298,6 @@ program cloudanalysis
   istat_nasalarc=0
 
   print_verbose=.false.
-  if (verbose) print_verbose=.true.
 
   write(6,*)
   write(6,*) "analysis time is=",iyear,imonth,iday,ihour,iminute,isecond
