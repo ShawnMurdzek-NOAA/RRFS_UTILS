@@ -207,11 +207,11 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
      end do
    end do
 
-   if( p_bk(nlon/2,nlat/2,2) < 5000.0_r_kind ) then
+   if( p_bk(max(nlon/2,1),nlat/2,2) < 5000.0_r_kind ) then
      write(6,*) 'cloudCover_NESDIS: pressure unit check failed', p_bk(nlon/2,nlat/2,2) 
      stop 115
    endif
-   if( tbk_k(nlon/2,nlat/2,nsig-2) > 300._r_kind) then
+   if( tbk_k(max(nlon/2,1),nlat/2,nsig-2) > 300._r_kind) then
      write(6,*) 'cloudCover_NESDIS: temperature unit check failed', &
                 tbk_k(nlon/2,nlat/2,nsig-2) 
      stop 116
@@ -236,6 +236,7 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
    npts_clear = 0
    npts_build = 0
    npts_bel650 = 0
+   npts_warm_cld_flag = 0
    npts_tskin_flag = 0
    npts_stab_flag = 0
    npts_ptly_cloudy = 0
