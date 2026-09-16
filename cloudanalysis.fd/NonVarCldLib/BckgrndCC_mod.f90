@@ -1,3 +1,7 @@
+module BckgrndCC_mod
+
+contains
+
 SUBROUTINE  BckgrndCC(nsig,tbk,pbk,q,hbk,zh,   &
                       cv_bk,t_k)
 !
@@ -47,6 +51,7 @@ SUBROUTINE  BckgrndCC(nsig,tbk,pbk,q,hbk,zh,   &
 !
   use module_kinds, only: r_single,i_kind,r_kind
   use module_constants, only: h1000, rd_over_cp, g_over_rd
+  use adaslib, only: rh_to_cldcv, f_qvsat
 
   implicit none
 
@@ -77,9 +82,8 @@ SUBROUTINE  BckgrndCC(nsig,tbk,pbk,q,hbk,zh,   &
   INTEGER :: i,j,k
 
 
-  REAL :: f_qvsat,aa,bb
+  REAL :: aa,bb
   REAL(r_kind) :: qvsat
-  REAL(r_kind) :: rh_to_cldcv
 
   REAL(r_kind) :: z_ref,x
   REAL(r_kind) :: arg,arg2, t_ref_c, td_ref_c
@@ -146,3 +150,5 @@ SUBROUTINE  BckgrndCC(nsig,tbk,pbk,q,hbk,zh,   &
 !
 
 END SUBROUTINE BckgrndCC
+
+end module BckgrndCC_mod

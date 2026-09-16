@@ -1,3 +1,7 @@
+module cloudLWC_mod
+
+contains
+
 SUBROUTINE cloudLWC_stratiform(mype,nlat,nlon,nsig,q_bk,t_bk,p_bk, &
                  cld_cover_3d,cld_type_3d,wthr_type,cloudlayers_i,  &
                  cldwater_3d,cldice_3d)
@@ -289,6 +293,7 @@ SUBROUTINE cloudLWC_Cumulus(nlat,nlon,nsig,h_bk,t_bk,p_bk,                      
 
   use module_constants, only: rd_over_cp, h1000
   use module_kinds, only: r_single,i_kind,r_kind
+  use ARPS_cldLib, only: get_slwc1d, get_sfm_1d
 
   implicit none
   integer(i_kind),intent(in) :: nlat,nlon,nsig
@@ -425,3 +430,5 @@ SUBROUTINE cloudLWC_Cumulus(nlat,nlon,nsig,h_bk,t_bk,p_bk,                      
   ENDDO  ! j
 
 END SUBROUTINE cloudLWC_Cumulus
+
+end module cloudLWC_mod

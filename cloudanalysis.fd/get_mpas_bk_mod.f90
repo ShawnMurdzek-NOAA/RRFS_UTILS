@@ -35,6 +35,7 @@ module get_mpas_bk_mod
   use module_constants, only: rad2deg
   use module_mpasio, only: read_MPAS_dim,read_MPAS_2D_real,read_MPAS_1D_real,read_MPAS_1D_int
   use module_mpasio, only: update_MPAS_2D_real,create_MPAS_2D_real
+  use pbl_height_mod, only: calc_pbl_height
 
   implicit none
   private

@@ -39,7 +39,24 @@ program cloudanalysis
 
   use module_constants, only: init_constants,init_constants_derived
   use module_constants, only: rd_over_cp, h1000
-  use module_constants, only: zero,one,rad2deg,fv
+  use module_constants, only: zero,one,fv
+
+! Subroutines from NonVarCldLib
+  use read_Surface_mod, only: read_Surface
+  use read_radar_ref_mod, only: read_radar_ref_bin
+  use read_Lightning_cld_mod, only: read_Lightning2cld
+  use read_nasalarc_cld_mod, only: read_NASALaRC_fv3
+  use vinterp_radar_ref_mod, only: vinterp_radar_ref
+  use build_missing_REFcone_mod, only: build_missing_REFcone
+  use convert_lghtn2ref_mod, only: convert_lghtn2ref
+  use cloudCover_Surface_mod, only: cloudCover_Surface
+  use cloudCover_NESDIS_mod, only: cloudCover_NESDIS
+  use cloudLayers_mod, only: cloudLayers
+  use cloudType_mod, only: cloudType
+  use cloudLWC_mod, only: cloudLWC_stratiform, cloudLWC_Cumulus
+  use PrecipType_mod, only: PrecipType
+  use hydro_mxr_thompson_mod, only: hydro_mxr_thompson
+  use cloud_saturation_mod, only: cloud_saturation
 
   use rapidrefresh_cldsurf_mod, only: init_rapidrefresh_cldsurf
   use rapidrefresh_cldsurf_mod, only: dfi_radar_latent_heat_time_period,   &

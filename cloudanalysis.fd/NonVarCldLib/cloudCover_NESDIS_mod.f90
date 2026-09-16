@@ -1,3 +1,7 @@
+module cloudCover_NESDIS_mod
+
+contains
+
 SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
                         xlong,xlat,t_bk,p_bk,h_bk,xland, &
                         soil_tbk,sat_ctp,sat_tem,w_frac,&
@@ -64,8 +68,9 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
 !
 
   use module_constants, only: rd_over_cp, h1000
-  use module_constants, only: deg2rad, rad2deg, pi
+  use module_constants, only: deg2rad, pi
   use module_kinds, only: r_single,i_kind,r_kind
+  use adaslib, only: getdays
   
   implicit none
 
@@ -721,3 +726,4 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
 !
 END SUBROUTINE cloudCover_NESDIS
 
+end module cloudCover_NESDIS_mod

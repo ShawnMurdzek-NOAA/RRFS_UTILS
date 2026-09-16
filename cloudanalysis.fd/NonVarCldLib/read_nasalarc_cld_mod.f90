@@ -1,3 +1,7 @@
+module read_nasalarc_cld_mod
+
+contains
+
 SUBROUTINE read_NASALaRC_fv3(mype,lunin,nlon,nlat,istart,jstart,nasalarc)
 !
 !$$$  subprogram documentation block
@@ -293,6 +297,7 @@ SUBROUTINE read_map_nasalarc(mype,lunin,numobs,istart,jstart,nlon,nlat,  &
 !
 
   use module_kinds, only: r_single,i_kind,r_kind
+  use map_ctp_lar_mod, only: map_ctp_lar
 
   implicit none
 
@@ -409,3 +414,5 @@ SUBROUTINE read_map_nasalarc(mype,lunin,numobs,istart,jstart,nlon,nlat,  &
   
 
 END SUBROUTINE read_map_nasalarc
+
+end module read_nasalarc_cld_mod
