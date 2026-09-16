@@ -39,7 +39,8 @@ program cloudanalysis
 
   use module_constants, only: init_constants,init_constants_derived
   use module_constants, only: rd_over_cp, h1000
-  use module_constants, only: zero,one,fv
+  use module_constants, only: zero,one
+!  use module_constants, only: fv
 
 ! Subroutines from NonVarCldLib
   use read_Surface_mod, only: read_Surface
@@ -59,21 +60,26 @@ program cloudanalysis
   use cloud_saturation_mod, only: cloud_saturation
 
   use rapidrefresh_cldsurf_mod, only: init_rapidrefresh_cldsurf
-  use rapidrefresh_cldsurf_mod, only: dfi_radar_latent_heat_time_period,   &
-                                      metar_impact_radius,                 &
-                                      l_cleanSnow_WarmTs,l_conserve_thetaV,&
+  use rapidrefresh_cldsurf_mod, only: l_conserve_thetaV,&
                                       r_cleanSnow_WarmTs_threshold,        &
                                       i_conserve_thetaV_iternum,           &
                                       l_cld_bld, cld_bld_hgt,              &
                                       build_cloud_frac_p, clear_cloud_frac_p, &
-                                      nesdis_npts_rad, &
                                       iclean_hydro_withRef, iclean_hydro_withRef_allcol, &
                                       l_use_hydroretrieval_all, &
-                                      i_lightpcp, l_numconc, qv_max_inc,ioption, &
+                                      i_lightpcp, l_numconc, qv_max_inc, &
                                       l_precip_clear_only,l_fog_off,cld_bld_coverage,cld_clr_coverage,&
-                                      i_T_Q_adjust,l_saturate_bkCloud,i_precip_vertical_check,l_rtma3d, &
+                                      i_T_Q_adjust,i_precip_vertical_check,l_rtma3d, &
                                       l_qnr_from_qr, n0_rain, &
                                       r_cloudfrac_threshold,l_cld_uncertainty
+
+! These options are not used by the current cloudanalysis implementation
+!  use rapidrefresh_cldsurf_mod, only: dfi_radar_latent_heat_time_period,   &
+!                                      metar_impact_radius,                 &
+!                                      l_cleanSnow_WarmTs,                  &
+!                                      nesdis_npts_rad,                     &
+!                                      ioption,                             &
+!                                      l_saturate_bkCloud
 
   use namelist_mod, only: load_namelist
   use namelist_mod, only: iyear,imonth,iday,ihour,iminute,isecond,dump_cld_cover_3d
@@ -197,10 +203,6 @@ program cloudanalysis
   real(r_kind),allocatable :: sumqci(:,:,:)  ! total liquid water
   real(r_kind),allocatable :: watericemax(:,:)  ! max of total liquid water
   integer(i_kind),allocatable :: kwatericemax(:,:)  ! lowest level of total liquid water
-  real(r_single),allocatable::temp1(:,:),tempa(:)
-  real(r_single),allocatable::all_loc(:,:)
-  real(r_single),allocatable::strp(:)
-  integer(i_kind) :: im,jm
 !
 ! option in namelist
 !
@@ -214,31 +216,24 @@ program cloudanalysis
                                              !  = other, use NESDIS only
 !
 !
-  real(r_kind), pointer :: ges_z (:,:  )=>NULL()  ! geopotential height
-  real(r_kind), pointer :: ges_ps(:,:  )=>NULL()  ! surface pressure
   real(r_single), pointer :: ges_tv(:,:,:)=>NULL()  ! virtual temperature
   real(r_single), pointer :: ges_q (:,:,:)=>NULL()  ! specifici humidity
 !
 !  misc.
 !
-  integer(i_kind) :: ytotal,ybegin,yend
   integer(i_kind) :: i,j,k
-  integer(i_kind) :: iglobal,jglobal,ilocal,jlocal
-  logical :: ifindomain
   integer(i_kind) :: imaxlvl_ref
   real(r_kind)    :: max_retrieved_qrqs,max_bk_qrqs,ratio_hyd_bk2obs
   real(r_kind)    :: qrqs_retrieved
   real(r_kind)    :: qrlimit,qrlimit_lightpcp
   real(r_kind)    :: qnr_limit
   real(r_kind)    :: dbz_clean_graupel
-  integer(i_kind) :: ilat1s,ilon1s
   integer(i_kind) :: clean_count,build_count,part_count,miss_count
-  integer :: sss,rrr
 
-  real(r_kind)    :: refmax,snowtemp,raintemp,nraintemp,graupeltemp
+  real(r_kind)    :: refmax,snowtemp,raintemp,nraintemp
   real(r_kind)    :: snowadd,ratio2
-  integer(i_kind) :: imax, jmax, ista, iob, job
-  real(r_kind)    :: dfi_lhtp, qmixr, tsfc
+  integer(i_kind) :: ista
+  real(r_kind)    :: tsfc
   real(r_kind)    :: Temp, watwgt
   real(r_kind)    :: cloudwater, cloudice
 
@@ -259,6 +254,31 @@ program cloudanalysis
   integer         :: lunin
   integer         :: nsat1
   integer         :: istatus
+
+! These are variables that were needed at one time, but are not needed anymore
+! If you uncomment any of the code in the program, you may also need to uncomment some of the lines here
+!
+!  real(r_single),allocatable:: xlon(:,:)        ! 2D longitude in each grid
+!  real(r_single),allocatable:: xlat(:,:)        ! 2D latitude in each grid
+!  real(r_single),  allocatable:: xland(:,:)
+!  real(r_single),allocatable:: soiltbk(:,:)
+!
+!  real(r_single),allocatable::temp1(:,:),tempa(:)
+!  real(r_single),allocatable::all_loc(:,:)
+!  real(r_single),allocatable::strp(:)
+!  integer(i_kind) :: im,jm
+!
+!  real(r_kind), pointer :: ges_z (:,:  )=>NULL()  ! geopotential height
+!  real(r_kind), pointer :: ges_ps(:,:  )=>NULL()  ! surface pressure
+!
+!  integer(i_kind) :: ytotal,ybegin,yend
+!  integer(i_kind) :: iglobal,jglobal,ilocal,jlocal
+!  logical :: ifindomain
+!  integer(i_kind) :: ilat1s,ilon1s
+!  integer :: sss,rrr
+!  real(r_kind)    :: graupeltemp
+!  integer(i_kind) :: imax, jmax, iob, job
+!  real(r_kind)    :: dfi_lhtp, qmixr
 !
   call MPI_INIT(ierror)
   call MPI_COMM_SIZE(mpi_comm_world,npe,ierror)

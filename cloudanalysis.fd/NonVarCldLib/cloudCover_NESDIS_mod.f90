@@ -155,7 +155,7 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
   PARAMETER ( null_p     = -1       )
   PARAMETER ( spval_p    =  99999.0 )
 
-  INTEGER(i_kind)  :: i,j,k,k1,i1,j1,jp1,jm1,ip1,im1
+  INTEGER(i_kind)  :: i,j,k,k1
   INTEGER(i_kind)  :: gmt,nday,iyear,imonth,iday
   REAL(r_kind)     :: declin
   real(r_kind)     :: hrang,xxlat
@@ -171,13 +171,19 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
 
   real(r_single)     :: tsmin
 
-  INTEGER(i_kind)  :: kisotherm, ibuddy, ktempmin
+  INTEGER(i_kind)  :: kisotherm, ktempmin
   real(r_kind)     :: tempmin,dth2dp2, stab, stab_threshold
 
   real(r_kind)     :: firstcloud, pdiff,pdiffabove
 
   INTEGER(i_kind)  :: k_closest, cld_warm_strat(nlon,nlat)
   REAL(r_kind)     :: tdiff
+
+! Unused variables in current implementation
+! May need to uncomment if some of the code below is uncommented
+!
+!  INTEGER(i_kind)  :: i1,j1,jp1,jm1,ip1,im1
+!  INTEGER(i_kind)  :: ibuddy
 
 !
 !====================================================================

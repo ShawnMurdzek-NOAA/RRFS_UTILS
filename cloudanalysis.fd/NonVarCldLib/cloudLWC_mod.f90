@@ -102,10 +102,10 @@ SUBROUTINE cloudLWC_stratiform(mype,nlat,nlon,nsig,q_bk,t_bk,p_bk, &
 
   real(r_single)    Cloud_q_qvis_rat_p, cloud_q_qvis_ratio
   real(r_single)    auto_conver
-  real(r_single)    rh_clear_p
+!  real(r_single)    rh_clear_p
   data  Cloud_q_qvis_rat_p/ 0.05_r_single/
   data  auto_conver       /0.0002_r_single/
-  data  rh_clear_p        /0.8_r_single/
+!  data  rh_clear_p        /0.8_r_single/
 
   real(r_kind) ::  es0_p
   parameter (es0_p=6.1121_r_kind)     ! saturation vapor pressure (mb)
