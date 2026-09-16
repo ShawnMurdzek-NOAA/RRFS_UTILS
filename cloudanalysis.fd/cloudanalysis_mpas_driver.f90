@@ -33,7 +33,7 @@ program cloudanalysis
 !_____________________________________________________________________
 !
 ! 
-  use mpi
+  use mpi_f08
   use module_kinds,   only: r_single,i_kind, r_kind
 !  use wrf_mass_guess_mod, only: soil_temp_cld,isli_cld,ges_xlon,ges_xlat,ges_tten
 

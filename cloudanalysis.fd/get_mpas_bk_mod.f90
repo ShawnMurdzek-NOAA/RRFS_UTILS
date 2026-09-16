@@ -28,7 +28,7 @@ module get_mpas_bk_mod
 !_____________________________________________________________________
 !
 
-  use mpi
+  use mpi_f08
   use module_kinds,   only: r_single,i_kind, r_kind
   use module_constants, only: init_constants,init_constants_derived
   use module_constants, only: rd,h1000,rd_over_cp,grav
