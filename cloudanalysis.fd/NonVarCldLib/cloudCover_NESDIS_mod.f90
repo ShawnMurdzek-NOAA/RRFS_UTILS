@@ -219,12 +219,12 @@ SUBROUTINE cloudCover_NESDIS(mype,regional_time,nlat,nlon,nsig,&
    end do
 
    if( p_bk(max(nlon/2,1),nlat/2,2) < 5000.0_r_kind ) then
-     write(6,*) 'cloudCover_NESDIS: pressure unit check failed', p_bk(nlon/2,nlat/2,2) 
+     write(6,*) 'cloudCover_NESDIS: pressure unit check failed', p_bk(max(nlon/2,1),nlat/2,2) 
      stop 115
    endif
    if( tbk_k(max(nlon/2,1),nlat/2,nsig-2) > 300._r_kind) then
      write(6,*) 'cloudCover_NESDIS: temperature unit check failed', &
-                tbk_k(nlon/2,nlat/2,nsig-2) 
+                tbk_k(max(nlon/2,1),nlat/2,nsig-2) 
      stop 116
    endif
 
